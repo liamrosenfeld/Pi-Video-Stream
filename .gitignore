@@ -1,3 +1,8 @@
+### Program Specific ###
+config.txt
+
+
+
 ### Linux ###
 *~
 
@@ -12,6 +17,8 @@
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
