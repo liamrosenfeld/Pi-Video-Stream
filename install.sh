@@ -41,8 +41,20 @@ if confirm "Do you want to use ngrok? (Y/n):"; then
 	echo -n "Please enter your ngrok token: "
 	read token
 	./ngrok authtoken "$token"
+	
+	# Setup Pushbullet With Ngrok
+	if confirm "Do you want to recieve your ngrok url with pushbullet? (Y/n):"; then 
+		echo "usePushbullet=true" >> $config
+		echo -n "Please enter your pushbullet access token: "
+		read token
+		echo "pushbulletToken=$token" >> $config
+	else 
+		echo "usePushbullet=false" >> $config
+	fi
+	
 else 
 	echo "useNgrok=false" >> $config
+	echo "usePushbullet=false" >> $config
 fi
     
 
