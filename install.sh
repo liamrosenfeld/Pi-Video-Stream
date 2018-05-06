@@ -78,7 +78,6 @@ if confirm "Do you want to autorun? (Y/n):"; then
 	echo "command=/home/pi/Pi-Video-Stream/start.sh"| sudo tee --append "$supervisorConf" > /dev/null
 	echo "directory=/home/pi/Pi-Video-Stream" | sudo tee --append "$supervisorConf" > /dev/null
 	echo "autostart=true" | sudo tee --append "$supervisorConf" > /dev/null
-	echo "autorestart=true" | sudo tee --append "$supervisorConf" > /dev/null
 	echo "startretries=0" | sudo tee --append "$supervisorConf" > /dev/null
 	echo "stderr_logfile=./autostart.err.log" | sudo tee --append "$supervisorConf" > /dev/null
 	echo "stdout_logfile=./autostart.log" | sudo tee --append "$supervisorConf" > /dev/null
