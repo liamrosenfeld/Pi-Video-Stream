@@ -19,6 +19,7 @@ writeToConfig() {
 	sed -i "s/$1/$2/g" $config
 }
 
+
 # Setup Config File
 config="./config.txt"
 if [ ! -e "$config" ]; then
@@ -35,6 +36,7 @@ else
 	fi
 fi
 
+
 # Setup Ngrok
 if confirm "Do you want to use ngrok? (Y/n):"; then 
 	echo "useNgrok=true" >> $config
@@ -42,7 +44,7 @@ if confirm "Do you want to use ngrok? (Y/n):"; then
 	read token
 	./ngrok authtoken "$token"
 	
-	# Setup Pushbullet With Ngrok
+	# Setup Pushbullet
 	if confirm "Do you want to recieve your ngrok url with pushbullet? (Y/n):"; then 
 		echo "usePushbullet=true" >> $config
 		echo -n "Please enter your pushbullet access token: "
@@ -56,5 +58,39 @@ else
 	echo "useNgrok=false" >> $config
 	echo "usePushbullet=false" >> $config
 fi
-    
+
+
+# Setup Autorun
+if confirm "Do you want to autorun? (Y/n):"; then 
+	sudo apt-get install -y supervisor
+	echo "Supervisor Installed!"
+	chmod +x start.sh
+
+	supervisorConf="/etc/supervisor/conf.d/piCamStart.conf"
+
+	if [ ! -e "$supervisorConf" ]; then 
+		sudo touch "$supervisorConf"
+	else 
+		sudo truncate -s 0 "$supervisorConf"
+	fi
+
+	echo "[program:PiCam]" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "command=/home/pi/Pi-Video-Stream/start.sh"| sudo tee --append "$supervisorConf" > /dev/null
+	echo "directory=/home/pi/Pi-Video-Stream" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "autostart=true" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "autorestart=true" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "startretries=0" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "stderr_logfile=./autostart.err.log" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "stdout_logfile=./autostart.log" | sudo tee --append "$supervisorConf" > /dev/null
+	echo "Start Config Setup!"
+
+	cd /etc/supervisor/conf.d
+	sudo service supervisor start
+	sudo supervisorctl reread
+	sudo supervisorctl reload
+	sudo supervisorctl start PiCam
+	echo "Started!"
+fi
+
+
 
