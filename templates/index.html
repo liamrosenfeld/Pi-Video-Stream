@@ -1,8 +1,22 @@
 <html>
-  <head>
-    <title>Live Video</title>
-  </head>
-  <body>
-    <img id="bg" src="{{ url_for('video_feed') }}">
-  </body>
+	<head>
+		<title>Live Video</title>
+		<link rel="stylesheet" type="text/css" href="../static/style.css">
+	</head>
+  
+	<body>
+		<script src="../static/script.js"></script>
+		
+		<img id="bg" src="{{ url_for('video_feed') }}">
+		
+		</br>
+		
+		<a href="#" onclick="javascript:optionBox('open')">Options</a>
+		<div id="light" class="white_content">
+			(Options go here)
+			<a href="#" onclick="javascript:optionBox('close')">Close</a>
+		</div>
+		<div id="fade" class="black_overlay"></div>
+		
+	</body>
 </html>
