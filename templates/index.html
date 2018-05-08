@@ -7,14 +7,20 @@
 	<body>
 		<script src="../static/script.js"></script>
 		
-		<img id="bg" src="{{ url_for('video_feed') }}">
+		<img id="video" src="{{ url_for('video_feed') }}">
 		
 		</br>
 		
-		<a href="#" onclick="javascript:optionBox('open')">Options</a>
+		<button onclick="javascript:optionBox('open')">Options</button>
 		<div id="light" class="white_content">
-			(Options go here)
-			<a href="#" onclick="javascript:optionBox('close')">Close</a>
+			<h3>Options</h3>
+			
+			<p>Resize</p>
+			<button onclick="javascript:resizeVideo('real')">Real Size</button>
+			<button onclick="javascript:resizeVideo('fullscreen')">Full Screen</button>
+			
+			</br>
+			<button onclick="javascript:optionBox('close')" class="right">Close</button>
 		</div>
 		<div id="fade" class="black_overlay"></div>
 		
