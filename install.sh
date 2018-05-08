@@ -14,11 +14,6 @@ confirm() {
     esac
 }
 
-writeToConfig() {
-	# $1 = Find and $2 = Replace
-	sed -i "s/$1/$2/g" $config
-}
-
 
 # Setup Config File
 config="./config.txt"
